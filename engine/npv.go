@@ -28,7 +28,6 @@ func (irs Trade) cashFlow() (map[time.Time]float64, map[time.Time]float64) {
 
 	isFirstPayment := true
 	effectiveDate := dateParser(irs.EffectiveDate)
-	// settlementDate := dateParser(irs.settlementDate)
 	terminationDate := dateParser(irs.TerminationDate)
 
 	// Exceptions: 지급/수취 항목 입력 오류 (pay/rec)

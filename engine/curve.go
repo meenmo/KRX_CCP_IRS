@@ -81,7 +81,6 @@ func (crv Curve) discountFactors() map[time.Time]float64 {
 			}
 			numerator = 1 - (numerator/365)*swapRate
 		}
-
 		df[date1] = roundTo(numerator/(1+swapRate*days(prevDate, date1)/365), 12)
 		prevDate = date1
 		numerator = 0
