@@ -42,5 +42,5 @@ func main() {
 	Crv := irs.BuildCurve(trade.SettlementDate, trade.CCPRates)
 	fmt.Println(int(trade.NPV(Crv))) // NPV
 	
-	fmt.Println(trade.Delta(5)) 	 // Key Rate Delta
+	fmt.Println(trade.Delta(5)) 	 // 5 Key Rate Delta
 }
