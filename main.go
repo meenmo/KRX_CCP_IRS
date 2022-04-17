@@ -3,10 +3,10 @@ package main
 import (
 	"fmt"
 
-	"github.com/meenmo/KRX_CCP_IRS/engine"
+	"github.com/meenmo/KRX_CCP_IRS/engine"	
 )
 
-var ccpRates = map[float64]float64{
+var ccpRates211217 = map[float64]float64{
 	// CCP 금리 파라미터
 	0:    0.9880102510,
 	0.25: 1.2700000000,
@@ -29,13 +29,18 @@ var ccpRates = map[float64]float64{
 }
 
 func main() {
-	trade := engine.Trade{
-		EffectiveDate:   "2015-06-11",                              // 유효일
-		TerminationDate: "2022-06-13",                              // 만기일
-		FixedRate:       2.11250,                                   // 고정금리
-		Notional:        10000000000,                               // 명목금액
-		Position:        "rec",                                     // PAY, REC (거래 방향)
-		Crv:             engine.BuildCurve("2021-12-20", ccpRates), // 결제일, CCP 금리 파라미터
+	trade := irs.IRS{
+		SettlementDate:  "2021-12-20",   // 결제일
+		EffectiveDate:   "2016-12-19",   // 유효일
+		TerminationDate: "2026-12-21",   // 만기일
+		FixedRate:       1.9275,         // 고정금리
+		Notional:        15000000000,    // 명목금액
+		Position:        "pay",          // PAY, REC (거래 방향)
+		CCPRates:        ccpRates211217, // CCP 금리파라미터
 	}
-	fmt.Println(trade.NPV())
+
+	Crv := irs.BuildCurve(trade.SettlementDate, trade.CCPRates)
+	fmt.Println(int(trade.NPV(Crv))) // NPV
+	
+	fmt.Println(trade.Delta(5)) 	 // Key Rate Delta
 }

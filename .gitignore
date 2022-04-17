@@ -1,3 +1,5 @@
 testSets.go
 irs_test.go
 *.exe
+*.mod
+*_test.go
